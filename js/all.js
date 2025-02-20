@@ -735,6 +735,7 @@ jQuery(document).ready(function() {
 								     <div class="series_number">${seriesObject[ks[i]]["SeriesNumber"]}</div>
 								     <div class="sequence_name">SequenceName: ${seriesObject[ks[i]]["SequenceName"]}</div>
 								     <div class="studyid">StudyID: ${seriesObject[ks[i]]["StudyID"]}</div>
+								     <div class="RadiopharmaceuticalStartTime">RadiopharmaceuticalStartTime: ${seriesObject[ks[i]]["RadiopharmaceuticalStartTime"]}</div>
 								     <div class="accessionnumber">AccessionNumber: ${seriesObject[ks[i]]["AccessionNumber"]}</div>
 								     </div>`
 								);

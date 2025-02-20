@@ -93,6 +93,12 @@
     font-style: italic;
 }
 
+.RadiopharmaceuticalStartTime {
+    padding-left: 5px;
+    font-size: 14px;
+    overflow-x: hidden;
+}
+
 .num_files, .sequence_name, .patientid, .studyid, .accessionnumber {
     padding-left: 5px;
     font-size: 14px;
