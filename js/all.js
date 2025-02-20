@@ -256,15 +256,53 @@ function dumpDataSet(dataSet, output) {
 		"x00080060": "Modality", // needed
 		"x00080070": "Manufacturer", // needed
 		"x00081090": "ManufacturerModelName", // needed
-		"x00181072": "RadiopharmaceuticalStartTime",
-		"x00181074": "RadiopharmaceuticalTotalDose",
-		"x00181075": "RadiopharmaceuticalHalfLife",
-		"x00181076": "RadiopharmaceuticalPositronFraction"
+		"x00540016x00181072": "RadiopharmaceuticalStartTime",
+		"x00540016x00181074": "RadiopharmaceuticalTotalDose",
+		"x00540016x00181075": "RadiopharmaceuticalHalfLife",
+		"x00540016x00181076": "RadiopharmaceuticalPositronFraction"
 	};
 	var validElements = Object.keys(validElementNames);
 	
 	var captureValues = {};
 	
+	// scan the elements that we need
+	for (var key in validElementNames) {
+		var sp = key.split("x");
+		if (sp.length == 2)
+			continue; // can be ignored, only a single x
+		// assume that we need to dig down into the dataSet now
+		var dS = dataSet;
+		var str = "";
+		for (var i = 0; i < sp.length; i++) {
+			if (sp[i].length == 0)
+				continue;
+			// now dig one deeper
+			if (("x" + sp[i]) in dS.elements) {
+				if ( i == sp.length - 1) {
+					str = dS.string("x" + sp[i]);
+					break;
+				}
+				dS = dS.elements["x" + sp[i]];
+
+				if ("items" in dS && dS.items.length > 0) {
+					for (var j = 0; j < dS.items.length; j++) {
+						dS2 = dS.items[j].dataSet;
+
+						if (i < sp.length -1) {
+							if (("x" + sp[i+1]) in dS2.elements) {
+								dS = dS2;
+								break;
+							}
+						}
+					}
+				}
+			}
+		}
+		// store the value
+		if (isASCII(str))
+			captureValues[validElementNames[key]] = str;
+	}
+
 	// the dataSet.elements object contains properties for each element parsed.  The name of the property
 	// is based on the elements tag and looks like 'xGGGGEEEE' where GGGG is the group number and EEEE is the
 	// element number both with lowercase hexadecimal letters.  For example, the Series Description DICOM element 0008,103E would
@@ -409,20 +447,6 @@ function dumpDataSet(dataSet, output) {
 							// CSASeriesHeaderInfo
 							if (validElementNames[propertyName] == "CSASeriesHeaderInfo") {
 								captureValues["CSASeriesHeaderInfo"] = str.length;
-							}
-							if (propertyName == "x00540016") {
-								if (validElementNames[propertyName] == "RadiopharmaceuticalStartTime") {
-									captureValues["RadiopharmaceuticalStartTime"] = str;
-								}
-								if (validElementNames[propertyName] == "RadiopharmaceuticalTotalDose") {
-									captureValues["RadiopharmaceuticalTotalDose"] = str;
-								}
-								if (validElementNames[propertyName] == "RadiopharmaceuticalHalfLife") {
-									captureValues["RadiopharmaceuticalHalfLife"] = str;
-								}
-								if (validElementNames[propertyName] == "RadiopharmaceuticalPositronFraction") {
-									captureValues["RadiopharmaceuticalPositronFraction"] = str;
-								}
 							}
 							
 						    text += '"' + safetext(str.slice(0,128)) + '"';
