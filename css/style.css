@@ -97,8 +97,22 @@
     padding-left: 5px;
     font-size: 14px;
     overflow-x: hidden;
+    white-space: nowrap;
 }
 
+.SiemensPrivateDateTime {
+    padding-left: 5px;
+    font-size: 14px;
+    overflow-x: hidden;
+    white-space: nowrap;
+}
+
+.PatientWeight {
+    padding-left: 5px;
+    font-size: 14px;
+    overflow-x: hidden;
+    white-space: nowrap;
+}
 .num_files, .sequence_name, .patientid, .studyid, .accessionnumber {
     padding-left: 5px;
     font-size: 14px;

@@ -81,6 +81,34 @@ function validate(seriesObject) {
 				inspect = false;
 				failedList[entry+seriesObject[entry]["RadiopharmaceuticalStartTime"]] = [entry, seriesObject[entry]["RadiopharmaceuticalStartTime"], "RadiopharmaceuticalStartTime missing"]
 			}
+			// SiemensPrivateDateTime
+			if (typeof seriesObject[entry]["SiemensPrivateDateTime"] == "undefined" || seriesObject[entry]["SiemensPrivateDateTime"].length == 0) {
+				inspect = false;
+				failedList[entry+seriesObject[entry]["SiemensPrivateDateTime"]] = [entry, seriesObject[entry]["SiemensPrivateDateTime"], "SiemensPrivateDateTime missing"]
+			}
+			// RadiopharmaceuticalTotalDose
+			if (typeof seriesObject[entry]["RadiopharmaceuticalTotalDose"] == "undefined" || seriesObject[entry]["RadiopharmaceuticalTotalDose"].length == 0) {
+				inspect = false;
+				failedList[entry+seriesObject[entry]["RadiopharmaceuticalTotalDose"]] = [entry, seriesObject[entry]["RadiopharmaceuticalTotalDose"], "RadiopharmaceuticalTotalDose missing"]
+			}
+			// RadiopharmaceuticalHalfLife
+			if (typeof seriesObject[entry]["RadiopharmaceuticalHalfLife"] == "undefined" || seriesObject[entry]["RadiopharmaceuticalHalfLife"].length == 0) {
+				inspect = false;
+				failedList[entry+seriesObject[entry]["RadiopharmaceuticalHalfLife"]] = [entry, seriesObject[entry]["RadiopharmaceuticalHalfLife"], "RadiopharmaceuticalHalfLife missing"]
+			}
+			// RadiopharmaceuticalPositronFraction
+			if (typeof seriesObject[entry]["RadiopharmaceuticalPositronFraction"] == "undefined" || seriesObject[entry]["RadiopharmaceuticalPositronFraction"].length == 0) {
+				inspect = false;
+				failedList[entry+seriesObject[entry]["RadiopharmaceuticalPositronFraction"]] = [entry, seriesObject[entry]["RadiopharmaceuticalPositronFraction"], "RadiopharmaceuticalPositronFraction missing"]
+			}
+
+			if (typeof seriesObject[entry]["PatientWeight"] == "undefined" || seriesObject[entry]["PatientWeight"].length == 0) {
+				inspect = false;
+				failedList[entry+seriesObject[entry]["PatientWeight"]] = [entry, seriesObject[entry]["PatientWeight"], "PatientWeight missing (needed for SUV)"]
+			}
+
+			// if we have both times we should test if the start time is before the end time
+			// We need a patientweight attribute as well (to compute SUV)
 		}
 	}
 	jQuery('#icon-radio').children().remove();
@@ -96,7 +124,7 @@ function validate(seriesObject) {
 			var entry = failedList[keys[i]][0];
 			issues_found += "<li><span>PatientID: " + seriesObject[entry]["PatientID"] + "</span> <span>SeriesNumber: " + seriesObject[entry]["SeriesNumber"] + "</span>" + " <span>Reason: " + failedList[keys[i]][2] + "</li>";
 		}
-		jQuery('#collapseTwo').find('div.failed_list').append("<ul>" + issues_found + "</ul>");
+		jQuery('#collapseTwo2').find('div.failed_list').append("<ul>" + issues_found + "</ul>");
 	}
 
 	
@@ -228,6 +256,7 @@ function dumpDataSet(dataSet, output) {
 		"x00100010": "PatientName", // needed
 		"x00100020": "PatientID", // needed
 		"x00100030": "PatientBirthDate",
+		"x00101030": "PatientWeight",
 		"x00100040": "Sex",
 		"x00101010": "Age",
 		"x00200011": "SeriesNumber",
@@ -259,7 +288,8 @@ function dumpDataSet(dataSet, output) {
 		"x00540016x00181072": "RadiopharmaceuticalStartTime",
 		"x00540016x00181074": "RadiopharmaceuticalTotalDose",
 		"x00540016x00181075": "RadiopharmaceuticalHalfLife",
-		"x00540016x00181076": "RadiopharmaceuticalPositronFraction"
+		"x00540016x00181076": "RadiopharmaceuticalPositronFraction",
+		"x00711022": "SiemensPrivateDateTime"
 	};
 	var validElements = Object.keys(validElementNames);
 	
@@ -448,6 +478,12 @@ function dumpDataSet(dataSet, output) {
 							if (validElementNames[propertyName] == "CSASeriesHeaderInfo") {
 								captureValues["CSASeriesHeaderInfo"] = str.length;
 							}
+							if (validElementNames[propertyName] == "SiemensPrivateDateTime") {
+								captureValues["SiemensPrivateDateTime"] = str;
+							}
+							if (validElementNames[propertyName] == "PatientWeight") {
+								captureValues["PatientWeight"] = str;
+							}
 							
 						    text += '"' + safetext(str.slice(0,128)) + '"';
 						}
@@ -503,10 +539,12 @@ function dumpDataSet(dataSet, output) {
 				"CSAImageHeaderInfo": captureValues["CSAImageHeaderInfo"],
 				"StudyID": captureValues["StudyID"],
 				"AccessionNumber": captureValues["AccessionNumber"],
+				"PatientWeight": captureValues["PatientWeight"],
 				"RadiopharmaceuticalStartTime": captureValues["RadiopharmaceuticalStartTime"],
 				"RadiopharmaceuticalTotalDose": captureValues["RadiopharmaceuticalTotalDose"],
 				"RadiopharmaceuticalHalfLife": captureValues["RadiopharmaceuticalHalfLife"],
-				"RadiopharmaceuticalPositronFraction": captureValues["RadiopharmaceuticalPositronFraction"]
+				"RadiopharmaceuticalPositronFraction": captureValues["RadiopharmaceuticalPositronFraction"],
+				"SiemensPrivateDateTime": captureValues["SiemensPrivateDateTime"]
 			};
 		}
 		seriesObject[captureValues["SeriesInstanceUID"]]["Files"] += 1;
@@ -736,7 +774,9 @@ jQuery(document).ready(function() {
 								     <div class="sequence_name">SequenceName: ${seriesObject[ks[i]]["SequenceName"]}</div>
 								     <div class="studyid">StudyID: ${seriesObject[ks[i]]["StudyID"]}</div>
 								     <div class="RadiopharmaceuticalStartTime">RadiopharmaceuticalStartTime: ${seriesObject[ks[i]]["RadiopharmaceuticalStartTime"]}</div>
-								     <div class="accessionnumber">AccessionNumber: ${seriesObject[ks[i]]["AccessionNumber"]}</div>
+									 <div class="SiemensPrivateDateTime">SiemensPrivateDateTime: ${seriesObject[ks[i]]["SiemensPrivateDateTime"]}</div>
+									 <div class="PatientWeight">PatientWeight: ${seriesObject[ks[i]]["PatientWeight"]}</div>
+									 <div class="accessionnumber">AccessionNumber: ${seriesObject[ks[i]]["AccessionNumber"]}</div>
 								     </div>`
 								);
 							}
