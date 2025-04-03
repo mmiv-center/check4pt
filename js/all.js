@@ -81,8 +81,8 @@ function validate(seriesObject) {
 				inspect = false;
 				failedList[entry+seriesObject[entry]["RadiopharmaceuticalStartTime"]] = [entry, seriesObject[entry]["RadiopharmaceuticalStartTime"], "RadiopharmaceuticalStartTime missing"]
 			}
-			// SiemensPrivateDateTime
-			if (typeof seriesObject[entry]["SiemensPrivateDateTime"] == "undefined" || seriesObject[entry]["SiemensPrivateDateTime"].length == 0) {
+			// SiemensPrivateDateTime (only if manufacturer is SIEMENS)
+			if (seriesObject[entry]["Manufacturer"] == "SIEMENS" && (typeof seriesObject[entry]["SiemensPrivateDateTime"] == "undefined" || seriesObject[entry]["SiemensPrivateDateTime"].length == 0)) {
 				inspect = false;
 				failedList[entry+seriesObject[entry]["SiemensPrivateDateTime"]] = [entry, seriesObject[entry]["SiemensPrivateDateTime"], "SiemensPrivateDateTime missing"]
 			}
@@ -102,9 +102,9 @@ function validate(seriesObject) {
 				failedList[entry+seriesObject[entry]["RadiopharmaceuticalPositronFraction"]] = [entry, seriesObject[entry]["RadiopharmaceuticalPositronFraction"], "RadiopharmaceuticalPositronFraction missing"]
 			}
 
-			if (typeof seriesObject[entry]["PatientWeight"] == "undefined" || seriesObject[entry]["PatientWeight"].length == 0) {
+			if (typeof seriesObject[entry]["PatientWeight"] == "undefined" || seriesObject[entry]["PatientWeight"].length == 0 || parseFloat(seriesObject[entry]["PatientWeight"]) < 10) {
 				inspect = false;
-				failedList[entry+seriesObject[entry]["PatientWeight"]] = [entry, seriesObject[entry]["PatientWeight"], "PatientWeight missing (needed for SUV)"]
+				failedList[entry+seriesObject[entry]["PatientWeight"]] = [entry, seriesObject[entry]["PatientWeight"], "PatientWeight missing or less than 10 kg (needed for SUV)"]
 			}
 
 			// if we have both times we should test if the start time is before the end time
