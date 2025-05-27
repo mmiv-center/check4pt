@@ -119,7 +119,7 @@ function validate(seriesObject) {
 	jQuery('#icon-radio').parent().find('span.badge').text(inspect?"no error":"errors found (click here for details)").removeClass("text-bg-success").removeClass("text-bg-secondary").addClass(inspect?"text-bg-success":"text-bg-danger");
 	jQuery('#collapseTwo2').find('div.failed_list').children().remove();
 	if (Object.keys(failedList).length == 0) {
-		jQuery('#collapseTwo2').find('div.failed_list').append("<div class=\"alert alert-success\" role=\"alert\">All series appear to be ok</div>");
+		jQuery('#collapseTwo2').find('div.failed_list').append("<div class=\"alert alert-success\" role=\"alert\">All series appear to be ok, or no PT series could be found.</div>");
 	} else {
 		var issues_found = "";
 		var keys = Object.keys(failedList);
