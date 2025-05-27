@@ -744,6 +744,10 @@ jQuery(document).ready(function() {
 							jQuery("#series-results").children().remove();
 							var ks = Object.keys(seriesObject);
 							ks.sort(function(a,b) {
+								if (seriesObject[a]["StudyDate"] < seriesObject[b]["StudyDate"])
+									return -1;
+								if (seriesObject[a]["StudyDate"] > seriesObject[b]["StudyDate"])
+									return 1;
 								if (seriesObject[a]["PatientID"] < seriesObject[b]["PatientID"])
 									return -1;
 								if (seriesObject[a]["PatientID"] > seriesObject[b]["PatientID"])
