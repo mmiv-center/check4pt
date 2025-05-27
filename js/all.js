@@ -748,9 +748,9 @@ jQuery(document).ready(function() {
 									return -1;
 								if (seriesObject[a]["PatientID"] > seriesObject[b]["PatientID"])
 									return 1;
-								if (parseInt(seriesObject[a]["StudyInstanceUID"]) < parseInt(seriesObject[b]["StudyInstanceUID"]))
+								if (seriesObject[a]["StudyInstanceUID"] < seriesObject[b]["StudyInstanceUID"])
 									return -1;
-								if (parseInt(seriesObject[a]["StudyInstanceUID"]) > parseInt(seriesObject[b]["StudyInstanceUID"]))
+								if (seriesObject[a]["StudyInstanceUID"] > seriesObject[b]["StudyInstanceUID"])
 									return 1;
 								if (parseInt(seriesObject[a]["SeriesNumber"]) < parseInt(seriesObject[b]["SeriesNumber"]))
 									return -1;
