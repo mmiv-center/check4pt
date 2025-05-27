@@ -107,7 +107,7 @@
     white-space: nowrap;
 }
 
-.PatientWeight {
+div.series div.PatientWeight {
     padding-left: 5px;
     font-size: 14px;
     overflow-x: hidden;
