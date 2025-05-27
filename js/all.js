@@ -848,9 +848,9 @@ jQuery(document).ready(function() {
 		
 		if( input.length ) {
 			input.val(log);
-		} else {
-			if( log ) alert(log);
-		}
+		} //else {
+		//	if( log ) alert(log);
+		//}
 		
 	});
 	jQuery('#toggle-details').on('click', function() {
