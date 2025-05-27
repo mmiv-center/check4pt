@@ -25,7 +25,7 @@ function validate(seriesObject) {
 	jQuery('#icon-study-date').children().remove();
 	jQuery('#icon-study-date').text("");
 	jQuery('#icon-study-date').append( (inspect?oked:failed) );
-	jQuery('#icon-study-date').parent().find('span.badge').text(inspect?"no errors":"errors found (select for details)").removeClass("badge-success").removeClass("badge-secondary").addClass(inspect?"badge-success":"badge-danger");
+	jQuery('#icon-study-date').parent().find('span.badge').text(inspect?"no errors":"errors found (select for details)").removeClass("text-bg-success").removeClass("text-bg-secondary").addClass(inspect?"text-bg-success":"text-bg-danger");
 	jQuery('#collapseOne').find('div.failed_list').children().remove();
 	if (Object.keys(failedList).length == 0) {
 		jQuery('#collapseOne').find('div.failed_list').append("<div class=\"alert alert-success\" role=\"alert\">All series appear to be ok</div>");
