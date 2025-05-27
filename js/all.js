@@ -60,6 +60,7 @@ function validate(seriesObject) {
 	jQuery('#icon-unique-identifiers').children().remove();
 	jQuery('#icon-unique-identifiers').text("");
 	jQuery('#icon-unique-identifiers').append( (inspect?oked:failed) );
+	jQuery('#icon-unique-identifiers').parent().find('span.badge').text(inspect?"no errors":"errors found (select for details)").removeClass("text-bg-success").removeClass("text-bg-secondary").addClass(inspect?"text-bg-success":"text-bg-danger");
 	jQuery('#collapseTwo').find('div.failed_list').children().remove();
 	if (Object.keys(failedList).length == 0) {
 		jQuery('#collapseTwo').find('div.failed_list').append("<div class=\"alert alert-success\" role=\"alert\">All series appear to be ok</div>");
@@ -115,6 +116,7 @@ function validate(seriesObject) {
 	jQuery('#icon-radio').children().remove();
 	jQuery('#icon-radio').text("");
 	jQuery('#icon-radio').append( (inspect?oked:failed) );
+	jQuery('#icon-radio').parent().find('span.badge').text(inspect?"no errors":"errors found (select for details)").removeClass("text-bg-success").removeClass("text-bg-secondary").addClass(inspect?"text-bg-success":"text-bg-danger");
 	jQuery('#collapseTwo2').find('div.failed_list').children().remove();
 	if (Object.keys(failedList).length == 0) {
 		jQuery('#collapseTwo2').find('div.failed_list').append("<div class=\"alert alert-success\" role=\"alert\">All series appear to be ok</div>");
@@ -148,6 +150,7 @@ function validate(seriesObject) {
 	jQuery('#icon-csa').children().remove();
 	jQuery('#icon-csa').text("");
 	jQuery('#icon-csa').append( (inspect?oked:failed) );
+	jQuery('#icon-csa').parent().find('span.badge').text(inspect?"no errors":"errors found (select for details)").removeClass("text-bg-success").removeClass("text-bg-secondary").addClass(inspect?"text-bg-success":"text-bg-danger");
 	jQuery('#collapseThree').find('div.failed_list').children().remove();
 	if (Object.keys(failedList).length == 0) {
 		jQuery('#collapseThree').find('div.failed_list').append("<div class=\"alert alert-success\" role=\"alert\">All series appear to be ok, or no SIEMENS MRI series could be found.</div>");
@@ -177,6 +180,7 @@ function validate(seriesObject) {
 	jQuery('#icon-manufacturer').children().remove();
 	jQuery('#icon-manufacturer').text("");
 	jQuery('#icon-manufacturer').append( (inspect?oked:failed) );
+	jQuery('#icon-manufacturer').parent().find('span.badge').text(inspect?"no errors":"errors found (select for details)").removeClass("text-bg-success").removeClass("text-bg-secondary").addClass(inspect?"text-bg-success":"text-bg-danger");
 	jQuery('#collapseFour').find('div.failed_list').children().remove();
 	if (Object.keys(failedList).length == 0) {
 		jQuery('#collapseFour').find('div.failed_list').append("<div class=\"alert alert-success\" role=\"alert\">All series appear to be ok</div>");
@@ -206,6 +210,7 @@ function validate(seriesObject) {
 	jQuery('#icon-patientid-patientname').children().remove();
 	jQuery('#icon-patientid-patientname').text("");
 	jQuery('#icon-patientid-patientname').append( (inspect?oked:failed) );
+	jQuery('#icon-patientid-patientname').parent().find('span.badge').text(inspect?"no errors":"errors found (select for details)").removeClass("text-bg-success").removeClass("text-bg-secondary").addClass(inspect?"text-bg-success":"text-bg-danger");
 	jQuery('#collapseFive').find('div.failed_list').children().remove();
 	if (Object.keys(failedList).length == 0) {
 		jQuery('#collapseFive').find('div.failed_list').append("<div class=\"alert alert-success\" role=\"alert\">All series appear to be ok</div>");
@@ -231,6 +236,7 @@ function validate(seriesObject) {
 	jQuery('#icon-series-description').children().remove();
 	jQuery('#icon-series-description').text("");
 	jQuery('#icon-series-description').append( (inspect?oked:failed) );
+	jQuery('#icon-series-description').parent().find('span.badge').text(inspect?"no errors":"errors found (select for details)").removeClass("text-bg-success").removeClass("text-bg-secondary").addClass(inspect?"text-bg-success":"text-bg-danger");
 	jQuery('#collapseSix').find('div.failed_list').children().remove();
 	if (Object.keys(failedList).length == 0) {
 		jQuery('#collapseSix').find('div.failed_list').append("<div class=\"alert alert-success\" role=\"alert\">All series appear to be ok</div>");
